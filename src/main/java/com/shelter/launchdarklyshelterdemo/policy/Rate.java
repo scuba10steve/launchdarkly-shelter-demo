@@ -10,6 +10,7 @@ import java.util.UUID;
 @Entity
 public class Rate {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private int length;

@@ -29,7 +29,7 @@ class FakePolicyService {
         Policy policy = findById(id);
 
         Rate rate;
-        if (featureService.useNewRates(id.toString())) {
+        if (featureService.useNewRates(id.toString(), policy.getClient())) {
             // As good as pie
             rate = new Rate(6, 3.14159f);
         } else {

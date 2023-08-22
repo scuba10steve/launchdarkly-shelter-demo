@@ -13,9 +13,10 @@ public class FeatureService implements DisposableBean {
         this.ldClient = ldClient;
     }
 
-    public boolean useNewRates(String username) {
+    public boolean useNewRates(String username, String client) {
         LDContext context = LDContext.builder(username)
                 .kind("user")
+                .set("firstName", client)
                 .build();
 
         return this.ldClient.boolVariation("new-ppa-rate-string", context, false);
