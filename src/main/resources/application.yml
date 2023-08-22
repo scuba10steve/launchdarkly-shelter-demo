@@ -1,0 +1,11 @@
+com:
+  shelter:
+    launchdarklydemo:
+      sdk-key: REDACTED # Intentionally left out, but can be updated to use your own SDK key and your own LD Project
+spring:
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+  jackson:
+    default-property-inclusion: non_null
