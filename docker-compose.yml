@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - metrics
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - metrics
+    volumes:
+      - ./prometheus:/etc/prometheus
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - metrics
+    volumes:
+      - ./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/
+
+#  rabbitmq:
+#    image: bitnami/rabbitmq
+#    ports:
+#      - "5672:5672"
+#    networks:
+#      - metrics
+
+networks:
+  metrics:
+    driver: bridge
