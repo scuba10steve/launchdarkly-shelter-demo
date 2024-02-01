@@ -3,8 +3,6 @@ package com.shelter.launchdarklyshelterdemo.feature;
 import com.launchdarkly.sdk.LDContext;
 import com.launchdarkly.sdk.server.LDClient;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
 
 public class FeatureService implements DisposableBean {
     private final LDClient ldClient;
@@ -16,7 +14,7 @@ public class FeatureService implements DisposableBean {
     public boolean useNewRates(String username, String client) {
         LDContext context = LDContext.builder(username)
                 .kind("user")
-                .set("firstName", client)
+                .set("name", client)
                 .build();
 
         return this.ldClient.boolVariation("new-ppa-rate-string", context, false);

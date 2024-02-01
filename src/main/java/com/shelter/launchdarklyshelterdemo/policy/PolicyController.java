@@ -1,5 +1,6 @@
 package com.shelter.launchdarklyshelterdemo.policy;
 
+import com.shelter.launchdarklyshelterdemo.policy.metrics.Instrumentation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -9,9 +10,12 @@ import java.util.UUID;
 class PolicyController {
 
     private final FakePolicyService policyService;
+    private final Instrumentation instrumentation;
 
-    PolicyController(FakePolicyService policyService) {
+    PolicyController(FakePolicyService policyService,
+                     Instrumentation instrumentation) {
         this.policyService = policyService;
+        this.instrumentation = instrumentation;
     }
 
     @GetMapping
@@ -25,7 +29,7 @@ class PolicyController {
     }
 
     @PutMapping("/{id}/rate")
-    Policy rateAndSave(@PathVariable String id) {
-        return this.policyService.rateAndSave(UUID.fromString(id));
+    Policy rateAndSave(@PathVariable String id) throws Exception {
+        return instrumentation.instrument(() -> this.policyService.rateAndSave(UUID.fromString(id)), id);
     }
 }

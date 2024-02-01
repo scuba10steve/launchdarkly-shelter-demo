@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-class Policy {
+public class Policy {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
