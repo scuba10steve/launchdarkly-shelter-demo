@@ -26,7 +26,8 @@ services:
     networks:
       - metrics
     volumes:
-      - ./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
 
 #  rabbitmq:
 #    image: bitnami/rabbitmq
