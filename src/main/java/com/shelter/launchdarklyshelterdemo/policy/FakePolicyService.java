@@ -4,7 +4,7 @@ import com.shelter.launchdarklyshelterdemo.feature.FeatureService;
 
 import java.util.UUID;
 
-class FakePolicyService {
+public class FakePolicyService {
     private final FeatureService featureService;
     private final PolicyRepository policyRepository;
     private final RateRepository rateRepository;
@@ -17,7 +17,7 @@ class FakePolicyService {
         this.rateRepository = rateRepository;
     }
 
-    Iterable<Policy> findAll() {
+    public Iterable<Policy> findAll() {
         return this.policyRepository.findAll();
     }
 

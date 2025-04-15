@@ -15,6 +15,13 @@ public class Policy {
     @OneToOne
     private Rate rate;
 
+    public Policy() {}
+
+    public Policy(String name) {
+        this.id = UUID.randomUUID();
+        this.client = name;
+    }
+
     public UUID getId() {
         return id;
     }

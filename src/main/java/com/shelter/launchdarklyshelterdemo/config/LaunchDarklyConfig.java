@@ -2,6 +2,9 @@ package com.shelter.launchdarklyshelterdemo.config;
 
 import com.launchdarkly.sdk.server.LDClient;
 import com.shelter.launchdarklyshelterdemo.feature.FeatureService;
+import com.shelter.launchdarklyshelterdemo.feature.LDFeatureService;
+import com.shelter.launchdarklyshelterdemo.feature.DisabledFeatureService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +14,15 @@ import org.springframework.context.annotation.Configuration;
 public class LaunchDarklyConfig {
 
     @Bean
-    FeatureService featureService(LDClient ldClient) {
-        return new FeatureService(ldClient);
+    @ConditionalOnProperty(prefix = "com.shelter.launchdarkly", value = "enabled", havingValue = "true", matchIfMissing = true)
+    FeatureService ldFeatureService(LDClient ldClient) {
+        return new LDFeatureService(ldClient);
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "com.shelter.launchdarkly", value = "enabled", havingValue = "false", matchIfMissing = false)
+    FeatureService localFeatureService() {
+        return new DisabledFeatureService();
     }
 
     @Bean

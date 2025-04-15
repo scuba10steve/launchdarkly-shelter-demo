@@ -1,6 +1,7 @@
 com:
   shelter:
-    launchdarklydemo:
+    launchdarkly:
+      enabled: false
       sdk-key:  # Intentionally left out, but can be updated to use your own SDK key and your own LD Project
 spring:
   jpa:
