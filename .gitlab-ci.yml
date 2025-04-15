@@ -1,0 +1,9 @@
+default:
+  image: eclipse-temurin:17-jdk
+
+build:
+  script:
+    - ./gradlew build --info --stacktrace
+  artifacts:
+    reports:
+      junit: '**/build/test-results/**/test-*.xml'
