@@ -22,8 +22,14 @@ stages:
 build:
   extends: .template
   stage: build
+  variables:
+    # Tell docker CLI to use the daemon started by the docker:dind service
+    DOCKER_HOST: tcp://docker:2375
   services:
-    - docker:dind
+    - name: docker:dind
+      alias: docker
+      variables:
+        HEALTHCHECK_TCP_PORT: "2375"
   before_script:
     - echo "Installing docker cli..."
     - apt update && apt install docker.io -y
@@ -38,9 +44,6 @@ build:
 test:
   extends: .template
   stage: test
-  needs:
-    - job: build
-      artifacts: true
   script:
     - echo "Running tests..."
     - ./gradlew check $DEFAULT_GRADLE_CLI_ARGS
