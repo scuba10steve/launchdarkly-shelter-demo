@@ -10,3 +10,5 @@ docker-compose up -d
 ```
 This will bring up an entire isolated environment with Grafana + Prometheus, this Demo app, and a RabbitMQ Broker.
 
+### Devcontainer
+You could also bring this up in a devcontainer instead if you'd like
