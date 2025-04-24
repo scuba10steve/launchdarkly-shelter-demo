@@ -6,4 +6,4 @@ build:
     - ./gradlew build --info --stacktrace
   artifacts:
     reports:
-      junit: '**/build/test-results/**/test-*.xml'
+      junit: '**/build/test-results/**/TEST-*.xml'
