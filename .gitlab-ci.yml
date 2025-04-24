@@ -1,9 +1,51 @@
 default:
   image: eclipse-temurin:17-jdk
 
+variables:
+  DEFAULT_GRADLE_CLI_ARGS: "--info --stacktrace"
+
+stages:
+  - build
+  - test
+
+.template:
+  artifacts:
+    paths:
+      - build
+      - .gradle
+  cache:
+    key: $CI_COMMIT_REF_NAME
+    paths:
+      - build
+      - .gradle
+
 build:
+  extends: .template
+  stage: build
+  services:
+    - docker:20.10.16-dind
   script:
-    - ./gradlew build --info --stacktrace
+    - echo "Beginning build..."
+    - echo "Installing docker cli..."
+    - apt update && apt install docker.io -y # This is a hack to make the docker cli available for subsequent commands
+    - ./gradlew assemble bootBuildImage --imageName=$CI_REGISTRY_IMAGE $DEFAULT_GRADLE_CLI_ARGS
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE
+    - echo "Build completed..."
+
+test:
+  extends: .template
+  stage: test
+  needs:
+    - job: build
+      artifacts: true
+  script:
+    - echo "Running tests..."
+    - ./gradlew check $DEFAULT_GRADLE_CLI_ARGS
+    - echo "Tests completed..."
   artifacts:
     reports:
-      junit: '**/build/test-results/**/TEST-*.xml'
+      junit: build/test-results/**/*.xml
+      coverage_report:
+        coverage_format: jacoco
+        path: build/jacoco/*.xml
