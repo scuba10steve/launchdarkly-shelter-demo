@@ -22,23 +22,9 @@ stages:
 build:
   extends: .template
   stage: build
-  variables:
-    # Tell docker CLI to use the daemon started by the docker:dind service
-    DOCKER_HOST: tcp://docker:2375
-  services:
-    - name: docker:dind
-      alias: docker
-      variables:
-        HEALTHCHECK_TCP_PORT: "2375"
-  before_script:
-    - echo "Installing docker cli..."
-    - apt update && apt install docker.io -y
-    - docker version # ensure we can use the docker daemon
   script:
     - echo "Beginning build..."
-    - ./gradlew assemble bootBuildImage --imageName=$CI_REGISTRY_IMAGE $DEFAULT_GRADLE_CLI_ARGS
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker push $CI_REGISTRY_IMAGE
+    - ./gradlew assemble $DEFAULT_GRADLE_CLI_ARGS
     - echo "Build completed..."
 
 test:
