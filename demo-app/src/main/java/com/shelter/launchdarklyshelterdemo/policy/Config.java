@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class Config {
     @Bean
-    FakePolicyService fakePolicyService(FeatureService featureService,
-                                        PolicyRepository policyRepository,
-                                        RateRepository rateRepository) {
-        return new FakePolicyService(featureService, policyRepository, rateRepository);
+    LocalPolicyService fakePolicyService(FeatureService featureService,
+                                         PolicyRepository policyRepository,
+                                         RateRepository rateRepository) {
+        return new LocalPolicyService(featureService, policyRepository, rateRepository);
     }
 
     @Bean

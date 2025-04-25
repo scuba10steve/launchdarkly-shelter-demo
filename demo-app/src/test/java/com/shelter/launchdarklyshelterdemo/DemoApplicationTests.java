@@ -1,6 +1,6 @@
 package com.shelter.launchdarklyshelterdemo;
 
-import com.shelter.launchdarklyshelterdemo.policy.FakePolicyService;
+import com.shelter.launchdarklyshelterdemo.policy.LocalPolicyService;
 import com.shelter.launchdarklyshelterdemo.policy.Policy;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,7 +23,7 @@ class DemoApplicationTests {
 	MockMvc mockMvc;
 
 	@MockBean
-	FakePolicyService policyService;
+	LocalPolicyService policyService;
 
 	@Test
     void policiesReturned() throws Exception {

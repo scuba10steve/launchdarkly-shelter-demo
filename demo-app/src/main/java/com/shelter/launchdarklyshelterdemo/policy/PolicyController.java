@@ -9,10 +9,10 @@ import java.util.UUID;
 @RequestMapping("/policies")
 class PolicyController {
 
-    private final FakePolicyService policyService;
+    private final LocalPolicyService policyService;
     private final Instrumentation instrumentation;
 
-    PolicyController(FakePolicyService policyService,
+    PolicyController(LocalPolicyService policyService,
                      Instrumentation instrumentation) {
         this.policyService = policyService;
         this.instrumentation = instrumentation;

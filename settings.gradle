@@ -1,1 +1,3 @@
 rootProject.name = 'launchdarkly-shelter-demo'
+
+include 'demo-app', 'policy-api'

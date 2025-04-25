@@ -4,12 +4,12 @@ import com.shelter.launchdarklyshelterdemo.feature.FeatureService;
 
 import java.util.UUID;
 
-public class FakePolicyService {
+public class LocalPolicyService implements PolicyService {
     private final FeatureService featureService;
     private final PolicyRepository policyRepository;
     private final RateRepository rateRepository;
 
-    FakePolicyService (FeatureService featureService,
+    LocalPolicyService(FeatureService featureService,
                        PolicyRepository policyRepository,
                        RateRepository rateRepository) {
         this.featureService = featureService;
@@ -17,15 +17,18 @@ public class FakePolicyService {
         this.rateRepository = rateRepository;
     }
 
+    @Override
     public Iterable<Policy> findAll() {
         return this.policyRepository.findAll();
     }
 
-    Policy findById(UUID id) {
+    @Override
+    public Policy findById(UUID id) {
         return this.policyRepository.findById(id).orElseThrow(() -> new PolicyNotFoundException(id));
     }
 
-    Policy rateAndSave(UUID id) {
+    @Override
+    public Policy rateAndSave(UUID id) {
         Policy policy = findById(id);
 
         Rate rate;
