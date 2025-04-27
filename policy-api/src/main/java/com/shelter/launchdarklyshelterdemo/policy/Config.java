@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class Config {
     @Bean
-    LocalPolicyService fakePolicyService(FeatureService featureService,
+    LocalPolicyService localPolicyService(FeatureService featureService,
                                          PolicyRepository policyRepository,
                                          RateRepository rateRepository) {
         return new LocalPolicyService(featureService, policyRepository, rateRepository);
@@ -18,10 +18,5 @@ class Config {
     @Bean
     Instrumentation instrumentation(MeterRegistry meterRegistry) {
         return new Instrumentation(meterRegistry);
-    }
-
-    @Bean
-    RemotePolicyService remotePolicyService(WebClient webClient) {
-        return new RemotePolicyService(webClient);
     }
 }
