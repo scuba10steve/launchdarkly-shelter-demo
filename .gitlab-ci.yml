@@ -8,7 +8,6 @@ default:
 
 variables:
   DEFAULT_GRADLE_CLI_ARGS: "--info --stacktrace"
-  DS_ENFORCE_NEW_ANALYZER: true
 
 stages:
   - build
