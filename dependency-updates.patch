@@ -21,9 +21,6 @@ index 79bd47d..68763ee 100644
  
  	implementation 'org.springframework.boot:spring-boot-starter-web'
  	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-diff --git a/gradle/wrapper/gradle-wrapper.jar b/gradle/wrapper/gradle-wrapper.jar
-index 033e24c..943f0cb 100644
-Binary files a/gradle/wrapper/gradle-wrapper.jar and b/gradle/wrapper/gradle-wrapper.jar differ
 diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
 index 5c6f89d..c6f0030 100644
 --- a/gradle/wrapper/gradle-wrapper.properties

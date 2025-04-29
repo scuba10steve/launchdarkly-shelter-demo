@@ -8,6 +8,7 @@ default:
 
 variables:
   DEFAULT_GRADLE_CLI_ARGS: "--info --stacktrace"
+  DS_ENFORCE_NEW_ANALYZER: true
 
 stages:
   - build
@@ -29,8 +30,20 @@ build:
   stage: build
   script:
     - echo "Beginning build..."
+    - ./gradlew generateLock saveLock
     - ./gradlew assemble $DEFAULT_GRADLE_CLI_ARGS
     - echo "Build completed..."
+  # generateLock saves the lock file in the build/ directory of a project
+  # and saveLock copies it into the root of a project. To avoid duplicates
+  # and get an accurate location of the dependency, use find to remove the
+  # lock files in the build/ directory only.
+  after_script:
+    - find . -path '*/build/dependencies.lock' -print -delete
+  # Collect all dependencies.lock artifacts and pass them onto jobs
+  # in sequential stages.
+  artifacts:
+    paths:
+      - "**/dependencies.lock"
 
 test:
   extends: .template
