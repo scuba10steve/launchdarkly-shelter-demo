@@ -1,6 +1,6 @@
 include:
-  - component: $CI_SERVER_FQDN/components/sast/sast@~latest
-  - component: $CI_SERVER_FQDN/components/dependency-scanning/main@~latest
+  # - component: $CI_SERVER_FQDN/components/sast/sast@~latest
+  # - component: $CI_SERVER_FQDN/components/dependency-scanning/main@~latest
   - component: $CI_SERVER_FQDN/components/code-quality-oss/codequality-os-scanners-integration/pmd@~latest
 
 default:
